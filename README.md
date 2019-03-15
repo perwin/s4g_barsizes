@@ -44,7 +44,7 @@ There are two Python notebooks:
    (including statistics).
    
    * `sample_defs.py` -- definitions of various subsamples of S4G galaxies, in the
-   form of integer lists of index values.
+   form of integer lists of index values (slices, more or less).
    
    * `fitting_barsizes.py` -- code to assist with the fits in the Jupyter notebook
    `barsize_fits.ipynb`.
@@ -52,3 +52,11 @@ There are two Python notebooks:
    * `make_fit_tables.py` -- code to generate LaTeX tables for the paper
 
 
+## Licensing
+
+Code in this repository is released under the BSD 3-clause license.
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+<img alt="Creative Commons License" style="border-width:0" 
+src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+Text and figures are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
