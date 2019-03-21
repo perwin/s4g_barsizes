@@ -63,6 +63,40 @@ def GetRadialSampleFromSphere( rMin, rMax ):
 	return math.sqrt(r2)	
 
 
+def AIC( logLikelihood, nParams ):
+	"""Calculate the original Akaike Information Criterion for a model fit
+	to data, given the ln(likelihood) of the best-fit model and the number of
+	model parameters nParams.
+	
+	Note that this should only be used for large sample sizes; for small
+	sample sizes (e.g., nData < 40*nParams), use the corrected AIC function
+	AICc [below].
+	"""
+	
+	return -2.0*logLikelihood + 2.0*nParams
+
+
+
+def AICc( logLikelihood, nParams, nData, debug=False ):
+	"""Calculate the bias-corrected Akaike Information Criterion for a
+	model fit to data, given the ln(likelihood) of the best-fit model,
+	the number of model parameters nParams, and the number of data points
+	nData (the latter is used to correct the 2*nParams part of AIC for small
+	sample size).
+	
+	Formula from Burnham & Anderson, Model selection and multimodel inference: 
+	a practical information-theoretic approach (2002), p.66.
+	"""
+	
+	# use corrected form of nParams term
+	aic = AIC(logLikelihood, nParams)
+	# add bias-correction term
+	correctionTerm = 2*nParams*(nParams + 1) / (nData - nParams - 1.0)
+	if debug:
+		print("AICc: ", aic, correctionTerm)
+	return aic + correctionTerm
+
+
 def ConfidenceInterval( vect ):
 	
 	nVals = len(vect)
@@ -118,6 +152,138 @@ def Binomial( n, n_tot, nsigma=1.0, conf_level=None, method="wilson" ):
 		sigma_plus = p_upper - p
 	
 	return (p, sigma_minus, sigma_plus)
+
+
+def bootstrap_validation( x, y, nIter, fittingFn,  modelFn=None, computeModelFn=None,
+							initialParams=None, adjustEstimate=True, errs=None,
+							verbose=False ):
+	"""
+	Uses bootstrap resampling to estimate the accuracy of a model (analogous to
+	"leave-k-out" cross-validation).
+	
+	See Sec. 7.11 of Hastie, Tibshirani, and Friedman 2008, Elements of Statistical
+	Learning (2nd Ed.).
+
+	Parameters
+	----------
+	x : numpy array of independent variable values (predictors)
+		Can also be tuple or list of 2 numpy arrays
+
+	y : numpy array of dependent variable values
+
+	nIter : int
+		number of bootstrap iterations to run		
+
+	fittingFn : function or callable
+		fittingFn(x, y, initialParams=None) fits the model
+		specified by modelFn to the data specified by x and y
+		
+		Returns "fitResult", which will be used by modelFn or computeModelFn
+			
+		If modelFn is supplied, then we use
+		fittingFn(x, y, modelFn, initialParams)
+
+	modelFn : function or callable, quasi-optional
+		modelFn(x, params) -- used by fittingFn; computes model which is fit to data
+			params = either initialParams or fitResult
+		
+	computeModelFn : function or callable, quasi-optional
+		computeModelFn(x, fitResult) -- computes model which is fit to data;
+		meant for cases when modelFn is not needed.
+	
+	initialParams : any or None, optional
+		object passed as optional input to fittingFn
+		
+	adjustEstimate : bool, optional [default = True]
+		If True (default), then the final error estimate is corrected using
+		the ".632+ bootstrap estimator" rule (Efron & Tibshirani 1997):
+			err = 0.368*err_training + 0.632*err_bootstrap
+		where err_training is the mean squared error of the model fit to the
+		complete dataset and err_bootstrap is the mean of the mean squared
+		errors from bootstrap resampling
+		
+		If False, then the return value is just err_bootstrap
+		
+	errs : numpy array of float or None, optional
+		array of Gaussian sigmas associated with y
+	
+	Returns
+	---------
+	errorEstimate : float
+		Approximation to the test error (mean squared error for predictions from the model
+	
+	Examples
+	---------
+	Fit a 2nd-order polynomial to data:
+		# define wrapper for np.polyval, since that function uses reverse of
+		# our normal input ordering
+		def nicepolyval( x, p ):
+			return np.polyval(p, x)
+		
+		# use initialParams to set the "deg" parameter for np.polyfit
+		bootstrap_validation(x, y, 100, np.polyfit, computeModelFn=nicepolyval,
+			initialParams=2)
+	"""
+	
+	if modelFn is None and computeModelFn is None:
+		print("ERROR: you must supply at least one of modelFn or computeModelFn!")
+		return None
+	if computeModelFn is None:
+		evaluateModel = modelFn
+	else:
+		evaluateModel = computeModelFn
+	
+	nData = len(y)
+	# initial fit to all the data ("training")
+	fitResult = fittingFn(x, y, initialParams, errs)
+	# MSE for fit to all the data
+	residuals = y - evaluateModel(x, fitResult)
+	errorTraining = np.mean(residuals**2)
+	if verbose:
+		print(fitResult)
+		print("training MSE = %g" % errorTraining)
+	
+	# Do bootstrap iterations
+	indices = np.arange(0, nData)
+	nIterSuccess = 0
+	individualBootstrapErrors = []
+	for b in range(nIter):
+		i_bootstrap = np.random.choice(indices, nData, replace=True)
+		i_excluded = [i for i in indices if i not in i_bootstrap]
+		nExcluded = len(i_excluded)
+		if (nExcluded > 0):
+			if type(x) in [tuple,list]:
+				x_b = (x[0][i_bootstrap], x[1][i_bootstrap])
+			else:
+				x_b = x[i_bootstrap]
+			y_b = y[i_bootstrap]
+			try:
+				if errs is None:
+					fitResult_b = fittingFn(x_b, y_b, initialParams, None)
+				else:
+					fitResult_b = fittingFn(x_b, y_b, initialParams, errs[i_bootstrap])
+				residuals = y - evaluateModel(x, fitResult_b)
+				# calculate mean squared prediction error for this sample
+				errorB = (1.0/nExcluded) * np.sum(residuals[i_excluded]**2)
+				individualBootstrapErrors.append(errorB)
+				nIterSuccess += 1
+			except RuntimeError:
+				# couldn't get a proper fit, so let's discard this sample and try again
+				pass
+	
+	individualBootstrapErrors = np.array(individualBootstrapErrors)
+	errorPredict = np.mean(individualBootstrapErrors)
+	if verbose:
+		print("test MSE = %g (%d successful iterations)" % (errorPredict, nIterSuccess))
+
+	
+	if adjustEstimate is True:
+		adjustedErrorPredict = 0.368*errorTraining + 0.632*errorPredict
+		if verbose:
+			print("Adjusted test MSE = %g" % adjustedErrorPredict)
+		return adjustedErrorPredict
+	else:
+		return errorPredict
 
 
 

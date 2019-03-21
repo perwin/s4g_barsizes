@@ -47,7 +47,8 @@ def fbrokenlin( x, a1, b1, x_brk, b2 ):
     The model is
         y = a1 + b1*x   for x < x_brk
         y = a2 + b2*x   for x > x_brk
-    Note that a2 is computed from the other parameters
+    Note that a2 is computed from the other parameters (it's not an independent
+    parameter, bcs. both equations have to be equal when x=x_brk)
     """
     a2 = a1 + (b1 - b2)*x_brk
     npts = len(x)
@@ -61,10 +62,12 @@ def fbrokenlin( x, a1, b1, x_brk, b2 ):
     return np.array(yy)
 
 
-def fmulti_lin_brokenlin( X, a, b, a1, b1, x_brk, b2 ):
+def fmulti_lin_brokenlin_old( X, a, b, a1, b1, x_brk, b2 ):
     """Composite function which add linear fit (a, b) to broken-linear
     fit (rest of parameters)
 
+	*** THIS IS THE OLDER, INCORRECT VERSION *** 
+	
     Parameters
     ----------
     X : tuple of x1, x2 
@@ -97,6 +100,47 @@ def fmulti_lin_brokenlin( X, a, b, a1, b1, x_brk, b2 ):
             y_i = a + b*x1_i + a1 + b1*x2_i
         else:
             y_i = a + b*x1_i + a2 + b2*x2_i
+        yy.append(y_i)
+    return np.array(yy)
+
+
+def fmulti_lin_brokenlin( X, a1, b, b1, x_brk, b2 ):
+    """Composite function which add linear fit (a, b) to broken-linear
+    fit (rest of parameters)
+
+    Parameters
+    ----------
+    X : tuple of x1, x2 
+        x1 : 1D numpy array of predictor using linear fit (e.g., log R_e)
+        x2 : 1D numpy array of predictor using broken-linear fit (e.g., log M_star)
+    a, b, a1, b1, x_brk, b2 : float
+        parameters for the model
+
+    Returns
+    -------
+    yy : ndarray of float
+        array of y values
+    
+    The model is
+        y = a1 + b*x1 + b1*x2   for x < x_brk
+        y = a2 + b*x1 + b2*x2   for x > x_brk
+    Note that a2 is computed from the other parameters (it's not an independent
+    parameter, bcs. both equations have to be equal when x=x_brk)
+    """
+    # unpack the two independent variables
+    # e.g., x1 = log(R_e), x2 = log(M_star)
+    x1,x2 = X
+    
+    a2 = a1 + (b1 - b2)*x_brk
+    npts = len(x1)
+    yy = []
+    for i in range(npts):
+        x1_i = x1[i]
+        x2_i = x2[i]
+        if x2_i < x_brk:
+            y_i = a1 + b*x1_i + b1*x2_i
+        else:
+            y_i = a2 + b*x1_i + b2*x2_i
         yy.append(y_i)
     return np.array(yy)
 
@@ -205,7 +249,14 @@ def PrintParams( params, prefix="", mode="linear" ):
         alpha2 = alpha1 + (beta1 - beta2)*x_break
         print("alpha1, beta1, alpha2, beta2, x_break = ")
         print("[%.3f, %.3f, %.3f, %.3f, %.3f]" % (alpha1, beta1, alpha2, beta2, x_break))
-    elif mode in ["composite", "binary"]:
+    elif mode == "composite":
+        alpha1, beta, beta1, x_break, beta2 = params
+        alpha2 = alpha1 + (beta1 - beta2)*x_break
+        print("alpha1, beta, alpha2, beta1, beta2, x_break = ")
+        txt = "[%.3f, %.3f, %.3f, " % (alpha1, beta, alpha2)
+        txt += "%.3f, %.3f, %.3f]" % (beta1, beta2, x_break)
+        print(txt)
+    elif mode in "binary":
         alpha, beta, alpha1, beta1, x_break, beta2 = params
         alpha2 = alpha1 + (beta1 - beta2)*x_break
         print("alpha, beta, alpha1, beta1, alpha2, beta2, x_break = ")

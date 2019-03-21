@@ -34,11 +34,12 @@ all of which are available on PyPI and can be installed via `pip`:
 
 ## Jupyter Notebooks
 
-There are two Python notebooks:
+There are two Jupyter Python notebooks:
 
    * `barsize_fits.ipynb` -- generates (and saves to a text file) various fits
 
-   * `barsizes_figures_for_paper.ipynb` -- generates the figures for the paper
+   * `barsizes_figures_for_paper.ipynb` -- generates the figures for the paper (using
+   fit coefficients saved by the first notebook)
 
 
 ## Python Code
