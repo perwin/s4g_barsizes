@@ -4,24 +4,20 @@ This git repository contains data files, Python code, and Python Jupyter
 notebooks which can be used to reproduce figures and analyses from the
 paper ["What Determines the Sizes of Bars in Spiral
 Galaxies?"](https://www.mpe.mpg.de/~erwin/temp/s4g_barsizes.pdf) (Erwin
-2019, *Monthly Notices of the Royal Astronomical Society*, submitted; [arXiv:19xx.xxx](https://arxiv.org/abs/19xx.xxx)).
-
-<!-- 
-The `data/` subdirectory contains text-file tables with various data compilations
-and simulation outputs; see the README.md file there for details.
- -->
+2019, *Monthly Notices of the Royal Astronomical Society*, submitted).
+<!-- [arXiv:19xx.xxx](https://arxiv.org/abs/19xx.xxx)). -->
 
 ![Bar sizes](./barsizes_display.png)
 
-(This figure, combining two plots from the paper, shows the size of bars
-from the local, S4G-based sample studied in the paper as a function
-stellar mass (left) and as a function of exponential disk scale length
-(right). The logarithm of bar size is a broken-linear function of the
-logarithm of stellar mass, and a simple linear function of the logarithm
-of exponential disk scale length. The cyan star in the left-hand panel
-shows the location of the Milky Way's bar, assuming a bar semi-major
-axis of 5 kpc and a stellar mass of 5 &times; 10<sup>10</sup> solar
-masses.)
+(This figure, combining two plots from the paper, shows the
+(deprojected) size of bars from the local, S4G-based sample studied in
+the paper as a function stellar mass (left) and as a function of
+exponential disk scale length (right). The logarithm of bar size is a
+broken-linear function of the logarithm of stellar mass, and a simple
+linear function of the logarithm of exponential disk scale length. The
+cyan star in the left-hand panel shows the location of the Milky Way's
+bar, assuming a bar semi-major axis of 5 kpc and a galaxy stellar mass
+of 5 &times; 10<sup>10</sup> solar masses.)
 
 ## Dependencies
 

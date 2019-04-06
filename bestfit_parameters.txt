@@ -1,0 +1,33 @@
+# Best-fit parameters for S4G barsize analysis (barsize_fits.ipynb): 2019-Apr-04 14:49:49
+# Name of fit, followed by best-fit parameter values
+#
+# barsize-vs-Mstar_lin:  alpha  beta
+barsize-vs-Mstar_lin: 	-1.8487	0.2196
+# barsize-vs-Mstar_parent_lin:  alpha  beta
+barsize-vs-Mstar_parent_lin: 	-1.9473	0.2308
+# barsize-vs-Mstar_brokenlin:  alpha1  beta1  x_break  beta2
+barsize-vs-Mstar_brokenlin: 	-0.4172	0.0688	10.1090	0.5594
+# barsize-vs-Mstar_parent_brokenlin:  alpha1  beta1  x_break  beta2
+barsize-vs-Mstar_parent_brokenlin: 	-0.6570	0.0951	10.1620	0.5913
+# barsize-vs-Mstar_lin_Reh:  alpha  beta
+barsize-vs-Mstar_lin_Reh: 	-1.8487	0.2196
+# barsize-vs-Mstar_brokenlin_Reh:  alpha1  beta1  x_break  beta2
+barsize-vs-Mstar_brokenlin_Reh: 	-0.4172	0.0688	10.1090	0.5594
+# barsize-vs-Re_lin_Reh:  alpha  beta
+barsize-vs-Re_lin_Reh: 	0.0327	0.4512
+# barsize-vs-h_lin_Reh:  alpha  beta
+barsize-vs-h_lin_Reh: 	0.0377	0.7583
+# barsize-vs-fgas_lin_Reh:  alpha  beta
+barsize-vs-fgas_lin_Reh: 	0.3059	-0.0000
+# barsize-vs-Re+Mstar_Reh:  alpha1  beta  beta1  x_brk  beta2
+barsize-vs-Re+Mstar_Reh: 	-0.4425	0.3434	0.0524	10.2440	0.4713
+# barsize-vs-h+Mstar_Reh:  alpha1  beta  beta1  x_brk  beta2
+barsize-vs-h+Mstar_Reh: 	0.0201	0.6125	0.0039	10.1310	0.3470
+# Re-vs-Mstar_Reh:  alpha1  beta1  x_brk  beta2
+Re-vs-Mstar_Reh: 	-0.1025	0.0633	10.0797	0.3815
+# h-vs-Mstar_Reh:  alpha1  beta1  x_brk  beta2
+h-vs-Mstar_Reh: 	-0.2545	0.0559	10.0930	0.4053
+# Re-vs-Mstar+bar_Reh:  alpha  beta  alpha1  beta1  x_brk  beta2
+Re-vs-Mstar+bar_Reh: 	-0.0428	0.5752	0.3082	0.0133	10.0021	0.2615
+# h-vs-Mstar+bar_Reh:  alpha  beta  alpha1  beta1  x_brk  beta2
+h-vs-Mstar+bar_Reh: 	-0.0657	0.3997	-0.1231	0.0399	10.0921	0.3136
