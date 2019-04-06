@@ -1,0 +1,18 @@
+# AIC and MSE_pred for best-fit parameters for S4G barsize analysis (barsize_fits.ipynb): 2019-Apr-04 14:37:34
+# [see /Users/erwin/Documents/Working/Projects/Project_BarSizes/bestfit_parameters.txt for parameter values]
+# Name of fit, best-fit AIC, MSE_pred
+barsize-vs-Mstar_lin:		8520.0	0.0454
+barsize-vs-Mstar_parent_lin:		9223.3	0.0467
+barsize-vs-Mstar_brokenlin:		7870.1	0.0422
+barsize-vs-Mstar_parent_brokenlin:		8560.7	0.0436
+barsize-vs-Mstar_lin_Reh:		8520.0	0.0455
+barsize-vs-Mstar_brokenlin_Reh:		7870.1	0.0423
+barsize-vs-Re_lin_Reh:		7328.8	0.0393
+barsize-vs-h_lin_Reh:		6242.2	0.0334
+barsize-vs-fgas_lin_Reh:		10794.1	0.0591
+barsize-vs-Re+Mstar_Reh:		6203.6	0.0338
+barsize-vs-h+Mstar_Reh:		5583.5	0.0304
+Re-vs-Mstar_Reh:		22930.8	0.0766
+h-vs-Mstar_Reh:		10038.8	0.0336
+Re-vs-Mstar+bar_Reh:		18426.2	0.0620
+h-vs-Mstar+bar_Reh:		8258.2	0.0278
