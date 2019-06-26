@@ -14,10 +14,16 @@ Galaxies?"](https://www.mpe.mpg.de/~erwin/temp/s4g_barsizes.pdf) (Erwin
 the paper as a function stellar mass (left) and as a function of
 exponential disk scale length (right). The logarithm of bar size is a
 broken-linear function of the logarithm of stellar mass, and a simple
-linear function of the logarithm of exponential disk scale length. The
+linear function of the logarithm of exponential disk scale length (dashed
+red lines in both panels; the dashed blue line in the left panel shows
+the best linear fit). The
 cyan star in the left-hand panel shows the location of the Milky Way's
 bar, assuming a bar semi-major axis of 5 kpc and a galaxy stellar mass
 of 5 &times; 10<sup>10</sup> solar masses.)
+
+<!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.804909.svg)](https://doi.org/10.5281/zenodo.804909) -->
+
+
 
 ## Dependencies
 
