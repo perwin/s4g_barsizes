@@ -21,7 +21,7 @@ cyan star in the left-hand panel shows the location of the Milky Way's
 bar, assuming a bar semi-major axis of 5 kpc and a galaxy stellar mass
 of 5 &times; 10<sup>10</sup> solar masses.)
 
-<!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.804909.svg)](https://doi.org/10.5281/zenodo.804909) -->
+[![DOI](https://zenodo.org/badge/86151029.svg)](https://zenodo.org/badge/latestdoi/86151029)
 
 
 
