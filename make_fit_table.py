@@ -14,7 +14,7 @@ import scipy.optimize
 import astrostat
 
 baseDir = "/Users/erwin/Documents/Working/Projects/Project_BarSizes/"
-baseDirPaper = "/Users/erwin/Documents/Working/Paper-s4gbars/"
+baseDirPaper = "/Users/erwin/Documents/Working/Papers-s4gbars/"
 
 sys.path.append(baseDir[:-1])
 import datasets

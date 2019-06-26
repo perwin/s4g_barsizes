@@ -7,7 +7,7 @@
 #    bar_strength -- Buta et al. (2015, ApJS, 217, 32)
 #    A2, A4 -- Diaz-Garcia et al. (2016a, 587, A160)
 #    Re, Re_kpc, h_kpc -- Salo et al. (2015, ApJS, 219, 4)
-#    R25, etc.; t_s4g -- main S4G table
+#    R25, etc.; t_s4g -- main S4G table [t_s4G is ultimately from HyperLEDA]
 #    B_tc, BmV_tc, m21c, W_gas, t_leda -- HyperLeda (as of 29 March 2017)
 #    gmr_tc -- total g-r color, based on BmV_tc as described in paper
 #    weight_BmVtc -- B_t-based weights for galaxy colors (see paper)
