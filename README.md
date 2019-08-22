@@ -4,7 +4,7 @@ This git repository contains data files, Python code, and Python Jupyter
 notebooks which can be used to reproduce figures and analyses from the
 paper ["What Determines the Sizes of Bars in Spiral
 Galaxies?"](https://www.mpe.mpg.de/~erwin/temp/s4g_barsizes.pdf) (Erwin
-2019, *Monthly Notices of the Royal Astronomical Society*, submitted).
+2019, *Monthly Notices of the Royal Astronomical Society*, in press).
 <!-- [arXiv:19xx.xxx](https://arxiv.org/abs/19xx.xxx)). -->
 
 ![Bar sizes](./barsizes_display.png)
